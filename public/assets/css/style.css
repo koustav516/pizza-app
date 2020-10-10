@@ -42,3 +42,20 @@ section.hero {
   color: white;
 }
 
+.btn-primary {
+  background-color: #FE5F1E;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-primary:hover {
+  background-color: #b23301;
+}
+
+section.cart {
+  background-color: #F8F8F8;
+}
+
+section.cart .amount {
+  color: #FE5F1E;
+}
+
