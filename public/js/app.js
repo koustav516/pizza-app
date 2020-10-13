@@ -115,8 +115,8 @@ console.log('Hello from resource');
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\koustav\Documents\Pizza_App\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\koustav\Documents\Pizza_App\resources\scss\app.scss */"./resources/scss/app.scss");
+__webpack_require__(/*! C:\Users\Koustav's PC\Documents\pizza-app\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\Koustav's PC\Documents\pizza-app\resources\scss\app.scss */"./resources/scss/app.scss");
 
 
 /***/ })
