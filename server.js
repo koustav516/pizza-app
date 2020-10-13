@@ -19,9 +19,16 @@ app.get('/', (req,res) => {
 });
 
 app.get('/cart', (req,res)=>{
-res.render('customers/cart');
+  res.render('customers/cart');
 });
 
+app.get('/login', (req,res) => {
+  res.render('auth/login');
+});
+
+app.get('/register', (req,res)=>{
+  res.render('auth/register'); 
+})
 
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
