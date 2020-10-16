@@ -4,6 +4,7 @@ const ejs = require('ejs');
 const expressLayout = require('express-ejs-layouts')
 const path = require('path');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 const session = require('express-session');
 const flash = require('express-flash');
 const SessionStorage = require('connect-mongo')(session);
@@ -30,6 +31,12 @@ connection.once('open', ()=>{
   console.log('Connection Failed: ', err);
 });
 
+//Body parser config
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+
 //session store
 let mongoSessionStore = new SessionStorage({
       mongooseConnection: connection,
@@ -49,7 +56,7 @@ app.use(flash());
 
 //Static file and json allow
 app.use(express.static(__dirname + '/public'));
-app.use(express.json());
+//app.use(express.json());
 
 //Global Middlewares
 app.use((req,res,next)=>{

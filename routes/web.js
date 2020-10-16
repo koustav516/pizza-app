@@ -7,12 +7,13 @@ const cartController = require('../app/http/controllers/customers/cartController
 
 const { index } = homeController();
 const { cart, update } = cartController();
-const { login,register } = authController();
+const { login,register, postRegister } = authController();
 
 
 router.get('/', index);
 router.get('/login', login);
 router.get('/register', register);
+router.post('/register', postRegister);
 router.get('/cart', cart);
 router.post('/update-cart',update)
 
