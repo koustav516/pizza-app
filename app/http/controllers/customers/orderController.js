@@ -32,6 +32,14 @@ function orders() {
             const orders = await Order.find({ customerId: req.user._id },null, { sort: { 'createdAt': -1 } })
             res.header('Cache-Control','private,no-cache,no-store,max-stale=0,must-revalidate,pre-check=0,post-check=0')
             res.render('customers/orders', { orders, moment });
+        },
+        async showOrderStatus(req,res) {
+            const order = await Order.findById(req.params.id)
+            //Authorize user
+            if(req.user._id.toString() === order.customerId.toString()) {
+                return res.render('customers/orderStatus', { order })
+            }
+            return res.redirect('/')
         }
     }
 }
