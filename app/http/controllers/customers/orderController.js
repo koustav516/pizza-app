@@ -1,4 +1,5 @@
 const Order = require('../../../models/orders');
+const moment = require('moment')
 
 function orders() {
     return {
@@ -19,7 +20,8 @@ function orders() {
 
              order.save().then(result => {
                 req.flash('success', 'Order placed succesfully')
-                return res.redirect('/')
+                delete req.session.cart
+                return res.redirect('/customer/orders')
              }).catch(err => {
                 req.flash('error', 'Something went wrong')
                 return res.redirect('/cart')
@@ -27,8 +29,9 @@ function orders() {
         },
 
         async showAllOrders(req,res) {
-            const orders = await Order.find({ customerId: req.user._id })
-            res.render('customers/orders', { orders });
+            const orders = await Order.find({ customerId: req.user._id },null, { sort: { 'createdAt': -1 } })
+            res.header('Cache-Control','private,no-cache,no-store,max-stale=0,must-revalidate,pre-check=0,post-check=0')
+            res.render('customers/orders', { orders, moment });
         }
     }
 }

@@ -1,8 +1,10 @@
 import axios from 'axios'
 import Noty from 'noty'
+import { admin } from './admin'
 
 const addToCartBtn = document.querySelectorAll('.add-to-cart');
 let cartCounter = document.querySelector('#item-Counter')
+const alertMsg = document.querySelector('#success-alert')
 
 function updateCart(product) {
     axios.post('/update-cart', product).then(res =>{
@@ -29,3 +31,13 @@ addToCartBtn.forEach((btn)=>{
        updateCart(pizza);
     });
 })
+
+//Deleting success message after 2 seconds
+if(alertMsg) {
+    setTimeout(() => {
+        alertMsg.remove()
+    },2000)
+}
+
+
+admin();
