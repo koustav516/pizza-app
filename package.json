@@ -27,13 +27,14 @@
     "mongoose": "^5.10.9",
     "noty": "^3.2.0-beta",
     "passport": "^0.4.1",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "socket.io": "^3.0.0"
   },
   "devDependencies": {
     "cross-env": "^7.0.2",
     "laravel-mix": "^5.0.6",
     "nodemon": "^2.0.4",
-    "resolve-url-loader": "^3.1.0",
+    "resolve-url-loader": "^3.1.2",
     "sass": "^1.27.0",
     "sass-loader": "^8.0.2",
     "vue-template-compiler": "^2.6.12"

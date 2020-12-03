@@ -9,11 +9,12 @@ const session = require('express-session');
 const flash = require('express-flash');
 const passport = require('passport')
 const SessionStorage = require('connect-mongo')(session);
+const Emitter = require('events')
 
 const passportInit = require('./app/config/passport');
 
 const initRoutes = require('./routes/web');
-const { Passport } = require('passport');
+
 
 const app = express();
 const PORT = process.env.PORT || 3000
@@ -40,6 +41,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
+
+//Event emitter
+const eventEmitter = new Emitter();
+app.set('eventEmitter', eventEmitter)
 
 //session store
 let mongoSessionStore = new SessionStorage({
@@ -82,6 +87,22 @@ app.set('view engine', 'ejs')
 //Routes
 app.use(initRoutes);
 
-app.listen(PORT, () => {
-  console.log(`Server started on port ${PORT}`);
+const server = app.listen(PORT, () => {
+    console.log(`Server started on port ${PORT}`);
 });
+
+//Socket
+const io = require('socket.io')(server)
+io.on('connection', (socket) => {
+  socket.on('join',(orderId)=>{
+    socket.join(orderId)
+  });
+});
+
+eventEmitter.on('orderUpdated', (data) =>{
+  io.to(`order_${data.id}`).emit('orderUpdated', data)
+})
+
+eventEmitter.on('orderPlaced', (data) =>{
+  io.to('adminRoom').emit('orderPlaced', data)
+})

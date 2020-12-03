@@ -17,15 +17,19 @@ function orders() {
                 phone,
                 address
              })
-
              order.save().then(result => {
-                req.flash('success', 'Order placed succesfully')
-                delete req.session.cart
-                return res.redirect('/customer/orders')
-             }).catch(err => {
-                req.flash('error', 'Something went wrong')
+                Order.populate(result, { path: 'customerId' }, (err, data) => {
+                    req.flash('success', 'Order placed successfully')
+                    delete req.session.cart
+                    //Emit event
+                    const eventEmitter = req.app.get('eventEmitter')
+                    eventEmitter.emit('orderPlaced', data)
+                    return res.redirect('/customer/orders')
+                })
+            }).catch(err => {
+                req.flash('error', 'Something went wrong.')
                 return res.redirect('/cart')
-             });
+            }) 
         },
 
         async showAllOrders(req,res) {

@@ -9,6 +9,7 @@ const alertMsg = document.querySelector('#success-alert')
 let hiddenInput = document.querySelector('#order-hidden')
 let statuses = document.querySelectorAll('.status-line')
 
+
 function updateCart(product) {
     axios.post('/update-cart', product).then(res =>{
         cartCounter.innerText = res.data.totalQuantity;
@@ -43,8 +44,6 @@ if(alertMsg) {
 }
 
 
-admin();
-
 //Update status
 let order = hiddenInput ? hiddenInput.value : null;
 order = JSON.parse(order);
@@ -73,3 +72,27 @@ const updateStatus = order => {
 
 updateStatus(order);
 
+//Socket 
+let socket = io()
+admin(socket);
+if(order){
+    socket.emit('join',`order_${order._id}`)
+}
+
+let adminAreaPath = window.location.pathname;
+if(adminAreaPath.includes('admin')) {
+    socket.emit('join', 'adminRoom')
+}
+
+socket.on('orderUpdated', (data)=>{
+    const updatedOrder = { ...order } //Copy of order
+    updatedOrder.updatedAt = moment().format()
+    updatedOrder.orderStatus = data.orderStatus
+    updateStatus(updatedOrder);
+    new Noty({
+        type: 'success',
+        timeout: 2000,
+        text: 'Order Updated',
+        progressBar: false
+    }).show();
+})    
