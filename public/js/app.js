@@ -27014,7 +27014,6 @@ var updateStatus = function updateStatus(order) {
 updateStatus(order); //Socket 
 
 var socket = io();
-Object(_admin__WEBPACK_IMPORTED_MODULE_2__["admin"])(socket);
 
 if (order) {
   socket.emit('join', "order_".concat(order._id));
@@ -27023,6 +27022,7 @@ if (order) {
 var adminAreaPath = window.location.pathname;
 
 if (adminAreaPath.includes('admin')) {
+  Object(_admin__WEBPACK_IMPORTED_MODULE_2__["admin"])(socket);
   socket.emit('join', 'adminRoom');
 }
 

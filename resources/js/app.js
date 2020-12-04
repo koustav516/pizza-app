@@ -74,13 +74,14 @@ updateStatus(order);
 
 //Socket 
 let socket = io()
-admin(socket);
+
 if(order){
     socket.emit('join',`order_${order._id}`)
 }
 
 let adminAreaPath = window.location.pathname;
 if(adminAreaPath.includes('admin')) {
+    admin(socket);
     socket.emit('join', 'adminRoom')
 }
 
