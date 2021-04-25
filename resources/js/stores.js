@@ -1,4 +1,5 @@
-const storeList = [
+export function allStores() {
+  return [
     {
         "type": "Feature",
         "geometry": {
@@ -348,3 +349,4 @@ const storeList = [
         }
       }
 ]
+}
