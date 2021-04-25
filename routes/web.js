@@ -7,6 +7,7 @@ const cartController = require('../app/http/controllers/customers/cartController
 const orderController = require('../app/http/controllers/customers/orderController');
 const adminOrderController = require('../app/http/controllers/admin/orderController');
 const statusController = require('../app/http/controllers/admin/statusController')
+const mapController = require('../app/http/controllers/mapController');
 
 const middlewareObj = require('../app/http/middlewares/index');
 
@@ -27,6 +28,9 @@ router.post('/login', postLogin);
 router.get('/register', guest ,register);
 router.post('/register', postRegister);
 router.post('/logout', logout);
+
+//store locator
+router.get('/stores',mapController);
 
 //Cart routes
 router.get('/cart', cart);
