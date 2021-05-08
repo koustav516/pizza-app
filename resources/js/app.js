@@ -2,6 +2,7 @@ import axios from 'axios'
 import Noty from 'noty'
 import { admin } from './admin'
 import { allStores } from './stores'
+import { initStripe } from './stripe'
 import moment from 'moment'
 
 const addToCartBtn = document.querySelectorAll('.add-to-cart');
@@ -70,7 +71,9 @@ const updateStatus = order => {
     });
 }
 
-updateStatus(order);
+updateStatus(order); 
+
+initStripe();
 
 //Socket 
 let socket = io()
@@ -96,7 +99,7 @@ socket.on('orderUpdated', (data)=>{
         text: 'Order Updated',
         progressBar: false
     }).show();
-})    
+})   
 
 //All stores
 
@@ -173,6 +176,9 @@ function flyToStore(store) {
         .openOn(myMap);
     }, 3000);
 }
+
+
+
 
 
 
